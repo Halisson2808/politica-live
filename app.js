@@ -1,10 +1,10 @@
 const DEFAULTS = [
   { id: 1, name: "LULA",   color: "#d92d3c", votes: 0, photo: "Lula-web.jpg",   emoji: "🧑‍🦳", icon: "rose" },
-  { id: 2, name: "FLÁVIO", color: "#1f6fe0", votes: 0, photo: "Flávio.jpg", emoji: "🕴️", icon: "roseWhite" },
+  { id: 2, name: "FLÁVIO", color: "#1f6fe0", votes: 0, photo: "Flavio.jpg", emoji: "🕴️", icon: "roseWhite" },
   { id: 3, name: "RENAN",  color: "#f07a1e", votes: 0, photo: "Renan-web.jpg",  emoji: "🧔", icon: "gift" },
-  { id: 4, name: "MARÇAL", color: "#7c3aed", votes: 0, photo: "Marçal.jpg",     emoji: "🧑‍💼", icon: "crown" }
+  { id: 4, name: "MARÇAL", color: "#7c3aed", votes: 0, photo: "Marcal.jpg",     emoji: "🧑‍💼", icon: "crown" }
 ];
-const KEY = "politica-live-v5";
+const KEY = "politica-live-v6";
 
 let candidates = load();
 
