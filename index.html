@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política Live — Votação</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<main>
+  <section class="cards" id="cards"></section>
+
+  <div class="total-bar">
+    <span class="total-icon">🗳️</span>
+    <span class="total-label">TOTAL DE VOTOS:</span>
+    <span class="total-value" id="total">0</span>
+  </div>
+
+  <div class="finish-wrap">
+    <button class="finish-btn" id="btn-finish"><span>🏁</span> Finalizar votação</button>
+  </div>
+</main>
+
+<!-- Modal de resultado -->
+<div class="modal" id="modal-result" hidden>
+  <div class="modal-box">
+    <h2>Resultado Final</h2>
+    <div id="result-body"></div>
+    <button class="finish-btn small" id="btn-close-result">Fechar</button>
+  </div>
+</div>
+
+<!-- Modal de edição -->
+<div class="modal" id="modal-edit" hidden>
+  <div class="modal-box">
+    <h2>Editar candidatos</h2>
+    <div id="edit-body" class="edit-body"></div>
+    <div class="edit-actions">
+      <button class="ghost-btn" id="btn-cancel-edit">Cancelar</button>
+      <button class="finish-btn small" id="btn-save-edit">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<script src="icons.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
