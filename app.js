@@ -2,9 +2,9 @@ const DEFAULTS = [
   { id: 1, name: "LULA",   color: "#d92d3c", votes: 0, photo: "Lula-web.jpg",   emoji: "🧑‍🦳", gift: "Rose.webp" },
   { id: 2, name: "FLÁVIO", color: "#1f6fe0", votes: 0, photo: "Flavio.jpg", emoji: "🕴️", gift: "whiterose.webp" },
   { id: 3, name: "RENAN",  color: "#f07a1e", votes: 0, photo: "Renan-web.jpg",  emoji: "🧔", gift: "Tiktok.webp" },
-  { id: 4, name: "MARÇAL", color: "#7c3aed", votes: 0, photo: "Marcal.jpg",     emoji: "🧑‍💼", gift: "GG.webp" }
+  { id: 4, name: "CURY",   color: "#7c3aed", votes: 0, photo: "Augusto-Cury.jpg", emoji: "🧑‍💼", gift: "GG.webp" }
 ];
-const KEY = "politica-live-v7";
+const KEY = "politica-live-v8";
 
 let candidates = load();
 
@@ -143,7 +143,7 @@ $("#btn-finish").addEventListener("click", () => {
   const body = $("#result-body");
 
   if (!total) {
-    body.innerHTML = `<p style="color:#8d97b0">Nenhum voto registrado ainda.</p>`;
+    body.innerHTML = `<p style="color:#64748b">Nenhum voto registrado ainda.</p>`;
   } else {
     body.innerHTML = sorted.map((c, i) => {
       const pct = (c.votes / total) * 100;
@@ -153,7 +153,7 @@ $("#btn-finish").addEventListener("click", () => {
         <div class="rn">${c.name}</div>
         <div class="rv">${c.votes} · ${shown}%</div>
       </div>`;
-    }).join("") + `<p style="margin-top:14px;color:#8d97b0;font-size:13px">Total de votos: <strong style="color:#f5b942">${total}</strong></p>`;
+    }).join("") + `<p style="margin-top:14px;color:#64748b;font-size:13px">Total de votos: <strong style="color:#f5b942">${total}</strong></p>`;
   }
   $("#modal-result").hidden = false;
 });
@@ -201,7 +201,7 @@ $("#btn-cancel-edit").addEventListener("click", () => {
 
 function transparent() {
   return "data:image/svg+xml;utf8," + encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="54" height="54"><rect width="54" height="54" fill="#222a3a"/></svg>'
+    '<svg xmlns="http://www.w3.org/2000/svg" width="54" height="54"><rect width="54" height="54" fill="#e2e8f0"/></svg>'
   );
 }
 

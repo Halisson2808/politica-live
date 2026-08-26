@@ -1,5 +1,5 @@
 /* Service worker: guarda os arquivos para o app abrir offline. */
-const CACHE = "politica-live-v1";
+const CACHE = "politica-live-v2";
 const ARQUIVOS = [
   "./",
   "./index.html",
@@ -9,7 +9,7 @@ const ARQUIVOS = [
   "./Lula-web.jpg",
   "./Flavio.jpg",
   "./Renan-web.jpg",
-  "./Marcal.jpg",
+  "./Augusto-Cury.jpg",
   "./Rose.webp",
   "./whiterose.webp",
   "./Tiktok.webp",
