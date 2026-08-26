@@ -17,6 +17,9 @@ body{
   color:var(--txt);
   font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
   overflow-x:hidden;
+  /* respeita entalhe/câmera em tela cheia */
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  -webkit-tap-highlight-color:transparent;
 }
 main{
   width:100%;
@@ -54,6 +57,15 @@ main{position:relative;z-index:1}
   transition:.18s;
 }
 .ghost-btn:hover{background:rgba(255,255,255,.14)}
+
+.fs-btn{
+  position:fixed;top:14px;right:14px;z-index:20;
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,.07);border:1px solid var(--line);
+  color:#9aa5be;font-size:15px;cursor:pointer;
+  display:grid;place-items:center;opacity:.45;transition:.18s;
+}
+.fs-btn:hover{opacity:1;background:rgba(255,255,255,.16);color:#fff}
 
 .hint{text-align:center;color:var(--muted);font-size:13px;margin:22px 0 6px}
 .hint strong{color:#cfd7ee}
