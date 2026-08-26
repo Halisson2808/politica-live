@@ -111,8 +111,12 @@ main{position:relative;z-index:1}
   border-radius:12px;padding:6px 10px;backdrop-filter:blur(6px);
   box-shadow:0 8px 20px rgba(0,0,0,.45);
 }
-.counter .icon{display:grid;place-items:center;width:24px;height:24px}
-.counter .icon svg{width:24px;height:24px;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.counter .icon{display:grid;place-items:center;width:30px;height:30px;font-size:16px}
+.counter .icon img{
+  width:30px;height:30px;display:block;object-fit:contain;
+  filter:drop-shadow(0 2px 5px rgba(0,0,0,.55));
+  user-select:none;-webkit-user-drag:none;
+}
 .counter .num{
   font-family:"Consolas",monospace;font-weight:800;font-size:19px;letter-spacing:2px;
   background:transparent;border:none;color:#fff;width:64px;text-align:center;outline:none;

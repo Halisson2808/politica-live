@@ -1,10 +1,10 @@
 const DEFAULTS = [
-  { id: 1, name: "LULA",   color: "#d92d3c", votes: 0, photo: "Lula-web.jpg",   emoji: "🧑‍🦳", icon: "rose" },
-  { id: 2, name: "FLÁVIO", color: "#1f6fe0", votes: 0, photo: "Flavio.jpg", emoji: "🕴️", icon: "roseWhite" },
-  { id: 3, name: "RENAN",  color: "#f07a1e", votes: 0, photo: "Renan-web.jpg",  emoji: "🧔", icon: "gift" },
-  { id: 4, name: "MARÇAL", color: "#7c3aed", votes: 0, photo: "Marcal.jpg",     emoji: "🧑‍💼", icon: "crown" }
+  { id: 1, name: "LULA",   color: "#d92d3c", votes: 0, photo: "Lula-web.jpg",   emoji: "🧑‍🦳", gift: "Rose.webp" },
+  { id: 2, name: "FLÁVIO", color: "#1f6fe0", votes: 0, photo: "Flavio.jpg", emoji: "🕴️", gift: "whiterose.webp" },
+  { id: 3, name: "RENAN",  color: "#f07a1e", votes: 0, photo: "Renan-web.jpg",  emoji: "🧔", gift: "Tiktok.webp" },
+  { id: 4, name: "MARÇAL", color: "#7c3aed", votes: 0, photo: "Marcal.jpg",     emoji: "🧑‍💼", gift: "GG.webp" }
 ];
-const KEY = "politica-live-v6";
+const KEY = "politica-live-v7";
 
 let candidates = load();
 
@@ -42,7 +42,9 @@ function build() {
       <div class="info">
         <div class="counter">
           <button class="step" data-act="dec" title="Remover 1 voto">−</button>
-          <span class="icon">${ICONS[c.icon] || ""}</span>
+          <span class="icon">${c.gift
+            ? `<img src="${src(c.gift)}" alt="" draggable="false" onerror="this.replaceWith(document.createTextNode('${c.emoji}'))">`
+            : c.emoji}</span>
           <input class="num" type="number" min="0" value="${c.votes}" data-role="num" title="Clique para digitar">
           <button class="step" data-act="inc" title="Adicionar 1 voto">+</button>
         </div>
