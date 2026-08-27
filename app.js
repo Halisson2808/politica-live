@@ -1,10 +1,12 @@
 const DEFAULTS = [
-  { id: 1, name: "LULA",   color: "#d92d3c", votes: 0, photo: "Lula-web.jpg",   emoji: "🧑‍🦳", gift: "Rose.webp" },
-  { id: 2, name: "FLÁVIO", color: "#1f6fe0", votes: 0, photo: "Flavio.jpg", emoji: "🕴️", gift: "whiterose.webp" },
-  { id: 3, name: "RENAN",  color: "#f07a1e", votes: 0, photo: "Renan-web.jpg",  emoji: "🧔", gift: "Tiktok.webp" },
-  { id: 4, name: "CURY",   color: "#7c3aed", votes: 0, photo: "Augusto-Cury.jpg", emoji: "🧑‍💼", gift: "GG.webp" }
+  { id: 1, name: "LULA",    color: "#d92d3c", votes: 0, photo: "Lula-web.jpg",     emoji: "🧑‍🦳", gift: "Rose.webp" },
+  { id: 2, name: "FLÁVIO",  color: "#1f6fe0", votes: 0, photo: "Flavio.jpg",       emoji: "🕴️", gift: "whiterose.webp" },
+  { id: 3, name: "RENAN",   color: "#f07a1e", votes: 0, photo: "Renan-web.jpg",    emoji: "🧔", gift: "Tiktok.webp" },
+  { id: 4, name: "CURY",    color: "#7c3aed", votes: 0, photo: "Augusto-Cury.jpg", emoji: "🧑‍💼", gift: "GG.webp" },
+  { id: 5, name: "MARÇAL",  color: "#db2777", votes: 0, photo: "Marcal-web.jpg",   emoji: "🕶️", gift: "Sorvete.webp" },
+  { id: 6, name: "CAIADO",  color: "#0891b2", votes: 0, photo: "Caiado-web.jpg",   emoji: "🤵", gift: "Brilhante.webp" }
 ];
-const KEY = "politica-live-v8";
+const KEY = "politica-live-v9";
 
 let candidates = load();
 
@@ -205,12 +207,12 @@ function transparent() {
   );
 }
 
-/* ---------- atalhos: teclas 1, 2, 3 ---------- */
+/* ---------- atalhos: teclas 1 a 6 ---------- */
 document.addEventListener("keydown", (e) => {
   if (e.target.matches("input")) return;
   if (e.key === "r" || e.key === "R") return resetVotes();
   if (e.key === "e" || e.key === "E") return openEdit();
-  const i = ["1", "2", "3", "4"].indexOf(e.key);
+  const i = ["1", "2", "3", "4", "5", "6"].indexOf(e.key);
   if (i === -1) return;
   candidates[i].votes += 1;
   const card = cardsEl.children[i];
