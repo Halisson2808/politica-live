@@ -25,6 +25,7 @@ function save() {
 
 const $ = (s) => document.querySelector(s);
 const cardsEl = $("#cards");
+const GOAL = 1000;
 
 /* ---------- render ---------- */
 function build() {
@@ -82,7 +83,28 @@ function paint() {
   });
 
   $("#total").textContent = total;
+  paintGoal(sorted[0], max);
   save();
+}
+
+function paintGoal(leader, max) {
+  const bar = $("#goal-bar");
+  const fill = $("#goal-fill");
+  const sub = $("#goal-sub");
+  const pct = Math.min(100, (max / GOAL) * 100);
+
+  fill.style.width = pct + "%";
+
+  if (!leader || max === 0) {
+    bar.style.setProperty("--gc", "#c77d0a");
+    sub.innerHTML = "nenhum voto ainda";
+  } else if (max >= GOAL) {
+    bar.style.setProperty("--gc", leader.color);
+    sub.innerHTML = `🎉 <strong>${leader.name}</strong> bateu a meta e venceu!`;
+  } else {
+    bar.style.setProperty("--gc", leader.color);
+    sub.innerHTML = `<strong>${leader.name}</strong> na frente — faltam <strong>${GOAL - max}</strong> votos`;
+  }
 }
 
 const pad = (n) => String(n).padStart(4, "0");
