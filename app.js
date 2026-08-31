@@ -35,7 +35,7 @@ function build() {
     card.style.setProperty("--c", c.color);
     card.dataset.index = i;
     card.innerHTML = `
-      <div class="tag left">Nº ${c.num}</div>
+      <div class="badge-num">${c.num}</div>
       <div class="tag right" data-role="rank">–</div>
       <div class="photo">
         ${c.photo
