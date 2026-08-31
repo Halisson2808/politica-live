@@ -1,12 +1,12 @@
 const DEFAULTS = [
-  { id: 1, name: "LULA",    color: "#d92d3c", votes: 0, photo: "Lula-web.jpg",     emoji: "🧑‍🦳", gift: "Rose.webp" },
-  { id: 2, name: "FLÁVIO",  color: "#1f6fe0", votes: 0, photo: "Flavio.jpg",       emoji: "🕴️", gift: "whiterose.webp" },
-  { id: 3, name: "RENAN",   color: "#f07a1e", votes: 0, photo: "Renan-web.jpg",    emoji: "🧔", gift: "Tiktok.webp" },
-  { id: 4, name: "CURY",    color: "#7c3aed", votes: 0, photo: "Augusto-Cury.jpg", emoji: "🧑‍💼", gift: "GG.webp" },
-  { id: 5, name: "MARÇAL",  color: "#db2777", votes: 0, photo: "Marcal-web.jpg",   emoji: "🕶️", gift: "Sorvete.webp" },
-  { id: 6, name: "CAIADO",  color: "#0891b2", votes: 0, photo: "Caiado-web.jpg",   emoji: "🤵", gift: "Brilhante.webp" }
+  { id: 1, num: 13, name: "LULA",    color: "#d92d3c", votes: 0, photo: "Lula-web.jpg",     emoji: "🧑‍🦳", gift: "Rose.webp" },
+  { id: 2, num: 22, name: "FLÁVIO",  color: "#1f6fe0", votes: 0, photo: "Flavio.jpg",       emoji: "🕴️", gift: "whiterose.webp" },
+  { id: 3, num: 14, name: "RENAN",   color: "#f07a1e", votes: 0, photo: "Renan-web.jpg",    emoji: "🧔", gift: "Tiktok.webp" },
+  { id: 4, num: 70, name: "CURY",    color: "#7c3aed", votes: 0, photo: "Augusto-Cury.jpg", emoji: "🧑‍💼", gift: "GG.webp" },
+  { id: 5, num: 28, name: "MARÇAL",  color: "#db2777", votes: 0, photo: "Marcal-web.jpg",   emoji: "🕶️", gift: "Sorvete.webp" },
+  { id: 6, num: 55, name: "CAIADO",  color: "#0891b2", votes: 0, photo: "Caiado-web.jpg",   emoji: "🤵", gift: "Brilhante.webp" }
 ];
-const KEY = "politica-live-v9";
+const KEY = "politica-live-v10";
 
 let candidates = load();
 
@@ -35,6 +35,7 @@ function build() {
     card.style.setProperty("--c", c.color);
     card.dataset.index = i;
     card.innerHTML = `
+      <div class="tag left">Nº ${c.num}</div>
       <div class="tag right" data-role="rank">–</div>
       <div class="photo">
         ${c.photo
@@ -167,7 +168,10 @@ function openEdit() {
     <div class="edit-item">
       <img class="edit-thumb" data-thumb="${i}" src="${c.photo ? src(c.photo) : transparent()}" alt="">
       <div class="edit-fields">
-        <input type="text" data-name="${i}" value="${c.name}" placeholder="Nome">
+        <div style="display:flex;gap:8px">
+          <input type="text" data-name="${i}" value="${c.name}" placeholder="Nome" style="flex:1">
+          <input type="number" min="0" max="999" data-num="${i}" value="${c.num}" placeholder="Nº" style="width:64px">
+        </div>
         <input type="color" data-color="${i}" value="${c.color}" style="width:48px;height:28px;background:none;border:none;cursor:pointer">
         <input type="file" accept="image/*" data-file="${i}">
       </div>
@@ -190,6 +194,8 @@ $("#btn-save-edit").addEventListener("click", () => {
   candidates.forEach((c, i) => {
     const n = document.querySelector(`[data-name="${i}"]`).value.trim();
     if (n) c.name = n;
+    const num = parseInt(document.querySelector(`[data-num="${i}"]`).value, 10);
+    if (!isNaN(num)) c.num = num;
     c.color = document.querySelector(`[data-color="${i}"]`).value;
   });
   $("#modal-edit").hidden = true;
