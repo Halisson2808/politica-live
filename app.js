@@ -248,7 +248,7 @@ function transparent() {
    Troque BRIDGE_URL pelo endereço do serviço depois de publicá-lo no Render
    (ex: "wss://politica-live-bridge.onrender.com"). Deixe vazio para manter
    o app funcionando só no modo manual, sem tentar conectar em nada. */
-const BRIDGE_URL = "";
+const BRIDGE_URL = "wss://politica-live.onrender.com";
 let bridgeSocket = null;
 let bridgeRetryDelay = 2000;
 
