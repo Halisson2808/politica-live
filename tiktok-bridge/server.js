@@ -81,6 +81,18 @@ httpServer.listen(PORT, () => {
 });
 
 /* ---------- conexão com o TikTok LIVE ---------- */
+let reconnectTimer = null;
+
+// evita empilhar várias tentativas quando mais de um evento (DISCONNECTED,
+// STREAM_END, erro de connect()) dispara ao mesmo tempo para a mesma queda
+function scheduleReconnect(delay) {
+  if (reconnectTimer) return;
+  reconnectTimer = setTimeout(() => {
+    reconnectTimer = null;
+    connectTikTok();
+  }, delay);
+}
+
 function connectTikTok() {
   const connection = new TikTokLiveConnection(USERNAME, {
     signApiKey: SIGN_API_KEY
@@ -95,7 +107,7 @@ function connectTikTok() {
     .catch((err) => {
       console.error("[tiktok] falha ao conectar:", err?.message || err);
       console.log("[tiktok] tentando de novo em 15s...");
-      setTimeout(connectTikTok, 15000);
+      scheduleReconnect(15000);
     });
 
   connection.on(WebcastEvent.GIFT, (data) => {
@@ -121,11 +133,12 @@ function connectTikTok() {
 
   connection.on(WebcastEvent.DISCONNECTED, () => {
     console.log("[tiktok] desconectado da live, tentando reconectar em 10s...");
-    setTimeout(connectTikTok, 10000);
+    scheduleReconnect(10000);
   });
 
   connection.on(WebcastEvent.STREAM_END, () => {
-    console.log("[tiktok] a live terminou.");
+    console.log("[tiktok] a live terminou, voltando a procurar em 10s...");
+    scheduleReconnect(10000);
   });
 
   connection.on(WebcastEvent.ERROR, (err) => {
