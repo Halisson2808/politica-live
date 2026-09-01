@@ -11,6 +11,12 @@ uso na versão gratuita, e pode parar de funcionar se o TikTok mudar algo no
 protocolo, sem aviso prévio. Funciona hoje, mas não é 100% garantido para
 sempre.
 
+> **Nota:** não ligue a opção `enableExtendedGiftInfo` no `server.js`. Ela
+> faz uma chamada extra ("buscar lista de presentes da sala") que a Euler
+> Stream cobra no plano Business ($50/mês) — foi o que quebrou a primeira
+> tentativa. O nome do presente já vem de graça no evento normal
+> (`data.giftDetails.giftName`), sem precisar dessa opção.
+
 ## 1. Publicar no Render (gratuito)
 
 1. Entre em [render.com](https://render.com) e crie uma conta (dá para usar

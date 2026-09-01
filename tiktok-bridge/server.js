@@ -83,8 +83,11 @@ httpServer.listen(PORT, () => {
 /* ---------- conexão com o TikTok LIVE ---------- */
 function connectTikTok() {
   const connection = new TikTokLiveConnection(USERNAME, {
-    signApiKey: SIGN_API_KEY,
-    enableExtendedGiftInfo: true
+    signApiKey: SIGN_API_KEY
+    // enableExtendedGiftInfo removido: essa opção faz uma chamada extra
+    // ("buscar lista de presentes da sala") que a Euler Stream cobra no
+    // plano Business. O nome do presente já vem de graça em
+    // data.giftDetails.giftName no evento normal, sem precisar disso.
   });
 
   connection.connect()
@@ -104,11 +107,11 @@ function connectTikTok() {
     const key = normalize(rawName);
     const amount = data.repeatCount || 1;
 
-    console.log(`[tiktok] presente recebido: "${rawName}" x${amount} de @${data.user?.uniqueId || "?"}`);
+    console.log(`[tiktok] presente recebido: "${rawName}" (giftId ${data.giftId}) x${amount} de @${data.user?.uniqueId || "?"}`);
 
     const alvo = GIFT_MAP[key];
     if (!alvo) {
-      console.log(`[tiktok] "${rawName}" não está mapeado em GIFT_MAP — ajuste server.js`);
+      console.log(`[tiktok] "${rawName}" (giftId ${data.giftId}) não está mapeado em GIFT_MAP — ajuste server.js`);
       return;
     }
 
