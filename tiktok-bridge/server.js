@@ -9,17 +9,24 @@
  *   SIGN_API_KEY     - chave da Euler Stream, opcional mas recomendada
  *                       (aumenta o limite de conexões simultâneas do
  *                       serviço de assinatura que a biblioteca usa)
+ *
+ * DESLIGADO TEMPORARIAMENTE: veja TIKTOK_ENABLED logo abaixo. O servidor
+ * continua no ar (o site consegue conectar nele normalmente), só a parte
+ * que tenta falar com o TikTok está pausada. Mude para "true" para
+ * reativar — nada mais precisa ser alterado.
  */
 
 import { TikTokLiveConnection, WebcastEvent } from "tiktok-live-connector";
 import { WebSocketServer } from "ws";
 import http from "http";
 
+const TIKTOK_ENABLED = false;
+
 const USERNAME = process.env.TIKTOK_USERNAME;
 const SIGN_API_KEY = process.env.SIGN_API_KEY || undefined;
 const PORT = process.env.PORT || 8080;
 
-if (!USERNAME) {
+if (TIKTOK_ENABLED && !USERNAME) {
   console.error("Defina a variável de ambiente TIKTOK_USERNAME (seu @ do TikTok, sem o @).");
   process.exit(1);
 }
@@ -146,4 +153,8 @@ function connectTikTok() {
   });
 }
 
-connectTikTok();
+if (TIKTOK_ENABLED) {
+  connectTikTok();
+} else {
+  console.log("[tiktok] conexão desligada (TIKTOK_ENABLED = false) — servidor no ar só para o placar se conectar.");
+}
