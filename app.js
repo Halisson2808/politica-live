@@ -109,6 +109,19 @@ function paintGoal(leader, max) {
 
 const pad = (n) => String(n).padStart(4, "0");
 
+function addVotes(index, amount) {
+  const c = candidates[index];
+  if (!c) return;
+  c.votes = Math.max(0, c.votes + amount);
+  const card = cardsEl.children[index];
+  if (card) {
+    card.classList.remove("bump");
+    void card.offsetWidth;
+    card.classList.add("bump");
+  }
+  paint();
+}
+
 // arquivos locais com acento precisam ser codificados na URL
 const src = (p) => (p.startsWith("data:") ? p : encodeURI(p));
 
@@ -120,16 +133,12 @@ cardsEl.addEventListener("click", (e) => {
   const step = e.target.closest(".step");
 
   if (step) {
-    candidates[i].votes = Math.max(0, candidates[i].votes + (step.dataset.act === "inc" ? 1 : -1));
+    addVotes(i, step.dataset.act === "inc" ? 1 : -1);
   } else if (e.target.closest('[data-role="num"]')) {
     return; // clicou no campo: deixa digitar
   } else {
-    candidates[i].votes += 1; // clique no card = +1
+    addVotes(i, 1); // clique no card = +1
   }
-  card.classList.remove("bump");
-  void card.offsetWidth;
-  card.classList.add("bump");
-  paint();
 });
 
 cardsEl.addEventListener("focusin", (e) => {
@@ -235,6 +244,42 @@ function transparent() {
   );
 }
 
+/* ---------- ponte com o TikTok LIVE ----------
+   Troque BRIDGE_URL pelo endereço do serviço depois de publicá-lo no Render
+   (ex: "wss://politica-live-bridge.onrender.com"). Deixe vazio para manter
+   o app funcionando só no modo manual, sem tentar conectar em nada. */
+const BRIDGE_URL = "";
+let bridgeSocket = null;
+let bridgeRetryDelay = 2000;
+
+function connectBridge() {
+  if (!BRIDGE_URL) return;
+
+  bridgeSocket = new WebSocket(BRIDGE_URL);
+
+  bridgeSocket.onopen = () => {
+    console.log("[bridge] conectado ao TikTok LIVE");
+    bridgeRetryDelay = 2000;
+  };
+
+  bridgeSocket.onmessage = (ev) => {
+    let msg;
+    try { msg = JSON.parse(ev.data); } catch (e) { return; }
+    if (msg.type !== "vote") return;
+    const i = candidates.findIndex((c) => c.id === msg.id);
+    if (i === -1) return;
+    addVotes(i, msg.amount || 1);
+  };
+
+  bridgeSocket.onclose = () => {
+    // tenta de novo com espera crescente, até 30s
+    setTimeout(connectBridge, bridgeRetryDelay);
+    bridgeRetryDelay = Math.min(bridgeRetryDelay * 1.5, 30000);
+  };
+
+  bridgeSocket.onerror = () => bridgeSocket.close();
+}
+
 /* ---------- atalhos: teclas 1 a 6 ---------- */
 document.addEventListener("keydown", (e) => {
   if (e.target.matches("input")) return;
@@ -242,10 +287,8 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "e" || e.key === "E") return openEdit();
   const i = ["1", "2", "3", "4", "5", "6"].indexOf(e.key);
   if (i === -1) return;
-  candidates[i].votes += 1;
-  const card = cardsEl.children[i];
-  card.classList.remove("bump"); void card.offsetWidth; card.classList.add("bump");
-  paint();
+  addVotes(i, 1);
 });
 
 build();
+connectBridge();

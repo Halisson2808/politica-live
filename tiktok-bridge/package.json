@@ -1,0 +1,18 @@
+{
+  "name": "politica-live-bridge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Escuta presentes da live do TikTok e avisa o placar do Política Live em tempo real.",
+  "main": "server.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "tiktok-live-connector": "^2.0.5",
+    "ws": "^8.18.0"
+  }
+}
